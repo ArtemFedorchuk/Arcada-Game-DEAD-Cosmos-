@@ -50,14 +50,14 @@ let game = () => {
 }
 
 let update = () => {
-    
     timer++
     if(timer % 50 == 0){
         traectory.push({
             x: Math.random()*CanvWidth,
             y: -50,
             speadX : Math.random()* 2-1,
-            speadY : Math.random()*10
+            speadY : Math.random()*10,
+            del : 0
         })
     }
     if(timer % 20 == 0){
@@ -82,7 +82,14 @@ let update = () => {
         if (traectory[i].x >= CanvWidth || traectory[i].x < 0) traectory[i].speadX =- traectory[i].speadX 
         if (traectory[i].y >= CanvWidth) traectory.splice(i,1)
     }
- 
+    // Проверка на столкновение
+    for( j in fires){
+        // if(fires[j].x && fires[j].y == traectory[j].x && traectory[j].x){
+        //     traectory[i].del = 1
+        //     fires.splice(j,1)
+        //      break
+        // }
+    }
 }
 
 let render = () => {
@@ -95,5 +102,3 @@ let render = () => {
     // context.drawImage(Aster3, traectory.x, traectory.y, 50, 50)
 
 }
-
-console.log(fires)
