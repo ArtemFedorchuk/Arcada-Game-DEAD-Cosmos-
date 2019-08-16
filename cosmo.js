@@ -9,6 +9,10 @@ let fires = [];
 let timer = 0;
 let meteors = ['asteroid.png', 'aster2.png', 'meteor3.png', 'Meteor4.png'];
 let counterWin = 0;
+let counter = counterWin;
+let centerW = CanvWidth / 2
+let centerH = CanvHeight / 2
+let botttom = CanvHeight - CanvHeight + 100
 
 // сделать requestAnimationFrame под все враузеры!
 
@@ -31,6 +35,7 @@ Fire.src = 'fire.png'
 
 let title = new Image()
 title.src = 'rebuild_2_1.png'
+
 
 let ships = {
     img: shipImg,
@@ -63,6 +68,7 @@ let update = () => {
             speadY: Math.random() * 10,
             del: 0
         })
+    
     }
     if (timer % 20 == 0) {
         fires.push({
@@ -89,10 +95,11 @@ let update = () => {
         // Проверка на столкновение
         for (j in fires) {
             // debugger
-            if (Math.abs(fires[j].x - traectory[i].x)<20 && Math.abs(fires[j].y - traectory[i].y)<65) {
+            if (Math.abs(fires[j].x - traectory[i].x) < 20 && Math.abs(fires[j].y - traectory[i].y) < 65) {
                 traectory[i].del = 1
                 fires.splice(j, 1)
                 traectory.splice(i, 1)
+                console.log(counter++)
                 break
             }
         }
@@ -102,10 +109,13 @@ let update = () => {
 
 let render = () => {
     context.drawImage(backgroundGame, 0, 0, CanvWidth, CanvHeight)
+    context.fillStyle = context.createPattern(title, 'repeat');
+    context.font = "bold 100pt Arial";
+    context.fillText('Death cosmos', centerW-450, botttom)
     // context.drawImage(title, 50, 900, 300,100)
     context.drawImage(ships.img, ships.x, ships.y, 90, 90)
     // for (i in fires) context.drawImage(Fire, fires[i].x + 55, fires[i].y + 30, 40, 40)
-    for(i in fires) context.drawImage(Fire, fires[i].x -4, fires[i].y +30, 40, 40)
+    for (i in fires) context.drawImage(Fire, fires[i].x - 4, fires[i].y + 30, 40, 40)
     for (i in traectory) context.drawImage(Asteroid, traectory[i].x, traectory[i].y, 50, 50)
     // context.drawImage(Aster2, traectory.x, traectory.y, 50, 50)
     // context.drawImage(Aster3, traectory.x, traectory.y, 50, 50)
